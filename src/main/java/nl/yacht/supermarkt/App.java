@@ -34,6 +34,14 @@ public class App
         }
 
         System.out.println("----------------------------");
+
+        Supermarket.removeProductFromInventory("Pampers", 8);
+
+        for(Product p : Supermarket.availableProducts){
+            System.out.println(p.toString());
+        }
+
+        System.out.println("----------------------------");
     }
 
     private static void init() {

@@ -35,7 +35,7 @@ public class Supermarket {
             if (prod.equals(p)) {
                 int numberOfAvailableProducts = prod.numberOfProducts;
                 if(numberOfAvailableProducts >= numberOfToRemoveProducts){
-                    prod.setNumberOfProducts(numberOfToRemoveProducts);
+                    prod.setNumberOfProducts(numberOfAvailableProducts - numberOfToRemoveProducts);
                 }else{
                     //doe iets wat aangeeft dat dit niet mag
                 }
@@ -48,7 +48,7 @@ public class Supermarket {
             if (prod.name.equals(productName)) {
                 int numberOfAvailableProducts = prod.numberOfProducts;
                 if(numberOfAvailableProducts >= numberOfToRemoveProducts){
-                    prod.setNumberOfProducts(numberOfToRemoveProducts);
+                    prod.setNumberOfProducts(numberOfAvailableProducts - numberOfToRemoveProducts);
                 }else{
                     //doe iets wat aangeeft dat dit niet mag
                 }
