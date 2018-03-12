@@ -6,7 +6,7 @@ import java.util.List;
 public class Product {
     public String name;
     public double price;
-    public static List<Product> allProducts;
+    public int numberOfProducts;
 
     public String getName() {
         return name;
@@ -24,17 +24,27 @@ public class Product {
         this.price = price;
     }
 
-    public static List<Product> getListOfAvailableProducts(){
-        return allProducts;
+    public int getNumberOfProducts() {
+        return numberOfProducts;
     }
 
-    public static void initProductList(){
-        allProducts = new ArrayList<Product>();
+    public void setNumberOfProducts(int numberOfProducts) {
+        this.numberOfProducts = numberOfProducts;
     }
 
-    public Product(String name, double price) {
+    public Product(String name, double price, int numberOfProducts) {
         this.name = name;
         this.price = price;
-        allProducts.add(this);
+        this.numberOfProducts = numberOfProducts;
+        Supermarket.addProductToInventory(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", numberOfProducts=" + numberOfProducts +
+                '}';
     }
 }

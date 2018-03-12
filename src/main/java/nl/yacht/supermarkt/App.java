@@ -12,7 +12,8 @@ public class App
     private static int currentDay;
     private static Calendar calendar;
     private static Cart cart;
-    
+    private static Supermarket supermarket;
+
     public static void main( String[] args )
     {
         init();
@@ -20,22 +21,25 @@ public class App
     }
 
     private static void test() {
-        for(Product p : Product.allProducts){
-            System.out.println(p.name);
+        for(Product p : Supermarket.availableProducts){
+            System.out.println(p.toString());
         }
+
+        System.out.println("----------------------------");
+
+        Supermarket.removeProductFromInventory(Supermarket.availableProducts.get(2));
+
+        for(Product p : Supermarket.availableProducts){
+            System.out.println(p.toString());
+        }
+
+        System.out.println("----------------------------");
     }
 
     private static void init() {
         calendar = Calendar.getInstance();
         cart = new Cart();
-        initProducts();
+        supermarket = new Supermarket();
     }
 
-    private static void initProducts() {
-        Product.initProductList();
-        new Product("FrikandelBroodje", 1.00);
-        new Product("Pampers", 9.99);
-        new Product("KipFilet", 2.40);
-        new Product("IjsThee", 0.99);
-    }
 }
