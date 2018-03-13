@@ -11,44 +11,61 @@ public class Cart {
         return cartProductList;
     }
 
-    public void Cart() {
+    public Cart() {
         cartProductList = new ArrayList<CartProduct>();
     }
 
     public void addMultipleProductsToCart(Product p, int numberOfProducts) {
-        boolean isInCart = false;
-
-        if (Supermarket.isProductQuantityInStock(p,numberOfProducts)) {
-            for (CartProduct cProd : cartProductList) {
-                if (cProd.getProduct().equals(p)) {
-                    cProd.setNumberOfProducts(cProd.getNumberOfProducts() + numberOfProducts);
-                    isInCart = true;
+        if (Supermarket.isProductQuantityInStock(p, numberOfProducts)) {
+            if (isProductInCart(p)) {
+                for (CartProduct cProd : cartProductList) {
+                    if (cProd.getProduct().equals(p)) {
+                        cProd.setNumberOfProducts(cProd.getNumberOfProducts() + numberOfProducts);
+                        Supermarket.removeProductFromInventory(p, numberOfProducts);
+                    }
                 }
-            }
-            if (!isInCart) {
+            } else {
                 cartProductList.add(new CartProduct(p, numberOfProducts));
+                Supermarket.removeProductFromInventory(p, numberOfProducts);
             }
-        }else{
+        } else {
             System.out.println("Product is niet beschikbaar");
         }
     }
 
-    public void removeMultipleProductsFromCart(Product p, int numberToRemoveProducts) {
-        boolean isInCart = false;
+    private boolean isProductInCart(Product p) {
         for (CartProduct cProd : cartProductList) {
             if (cProd.getProduct().equals(p)) {
-                isInCart = true;
-                if (cProd.getNumberOfProducts() > numberToRemoveProducts) {
-                    cProd.setNumberOfProducts(numberToRemoveProducts);
-                } else if (cProd.getNumberOfProducts() == numberToRemoveProducts) {
-                    cartProductList.remove(cProd);
-                } else {
-                    System.out.println("Zoveel producten zitten niet in je winkelkarretje");
-                }
+                return true;
             }
         }
-        if (!isInCart) {
+        return false;
+    }
+
+    public void removeMultipleProductsFromCart(Product p, int numberToRemoveProducts) {
+        if (isProductInCart(p)) {
+            for (CartProduct cProd : cartProductList) {
+                if (cProd.getProduct().equals(p)) {
+                    if (cProd.getNumberOfProducts() > numberToRemoveProducts) {
+                        cProd.setNumberOfProducts(numberToRemoveProducts);
+                        Supermarket.addNumberOfStockToExcistingProduct(p,numberToRemoveProducts);
+                    } else if (cProd.getNumberOfProducts() == numberToRemoveProducts) {
+                        cartProductList.remove(cProd);
+                        Supermarket.addNumberOfStockToExcistingProduct(p,numberToRemoveProducts);
+                    } else {
+                        System.out.println("Zoveel producten zitten niet in je winkelkarretje");
+                    }
+                }
+            }
+        } else {
             System.out.println("Grappenmaker dit product zit niet in het winkelkarretje");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "cartProductList=" + cartProductList +
+                '}';
     }
 }

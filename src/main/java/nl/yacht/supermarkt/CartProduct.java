@@ -2,7 +2,7 @@ package nl.yacht.supermarkt;
 
 public class CartProduct {
     private Product product;
-    private int numberOfProducts;
+    private int numberOfProductsInCart;
 
     public Product getProduct() {
         return product;
@@ -13,15 +13,23 @@ public class CartProduct {
     }
 
     public int getNumberOfProducts() {
-        return numberOfProducts;
+        return numberOfProductsInCart;
     }
 
     public void setNumberOfProducts(int numberOfProducts) {
-        this.numberOfProducts = numberOfProducts;
+        this.numberOfProductsInCart = numberOfProducts;
     }
 
     public CartProduct(Product product, int numberOfProducts) {
         this.product = product;
-        this.numberOfProducts = numberOfProducts;
+        this.numberOfProductsInCart = numberOfProducts;
+    }
+
+    @Override
+    public String toString() {
+        return "CartProduct{" +
+                "product=" + product +
+                ", numberOfProductsInCart=" + numberOfProductsInCart +
+                '}';
     }
 }

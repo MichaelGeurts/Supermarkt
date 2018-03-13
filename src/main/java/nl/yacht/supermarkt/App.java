@@ -42,8 +42,23 @@ public class App
         }
 
         System.out.println("----------------------------");
+        System.out.println("Zet producten in karretje");
 
         cart.addMultipleProductsToCart(Supermarket.getProductByName("Pampers"), 10);
+
+        for(CartProduct c : cart.getCartProductList()){
+            System.out.println(c.getProduct().getName());
+            System.out.println(c.getProduct().getNumberOfProducts());
+        }
+
+        System.out.println("----------------------------");
+        System.out.println("Haal ze er uit");
+
+        cart.removeMultipleProductsFromCart(Supermarket.getProductByName("Pampers"), 5);
+
+        for(CartProduct c : cart.getCartProductList()){
+            System.out.println(c);
+        }
     }
 
     private static void init() {
@@ -51,5 +66,7 @@ public class App
         cart = new Cart();
         supermarket = new Supermarket();
     }
+
+
 
 }
