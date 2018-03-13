@@ -18,7 +18,7 @@ public class Cart {
     public void addMultipleProductsToCart(Product p, int numberOfProducts) {
         boolean isInCart = false;
 
-        if (Supermarket.isProductInStock(p,numberOfProducts)) {
+        if (Supermarket.isProductQuantityInStock(p,numberOfProducts)) {
             for (CartProduct cProd : cartProductList) {
                 if (cProd.getProduct().equals(p)) {
                     cProd.setNumberOfProducts(cProd.getNumberOfProducts() + numberOfProducts);
