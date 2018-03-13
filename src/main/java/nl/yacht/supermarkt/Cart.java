@@ -5,32 +5,50 @@ import java.util.List;
 
 public class Cart {
 
-    public List<Product> productList;
+    private List<CartProduct> cartProductList;
 
-    public List<Product> getProductList() {
-        return productList;
+    public List<CartProduct> getCartProductList() {
+        return cartProductList;
     }
 
     public void Cart() {
-        productList = new ArrayList<Product>();
+        cartProductList = new ArrayList<CartProduct>();
     }
 
-    public void addProductToCart(Product p) {
-        productList.add(p);
-    }
+    public void addMultipleProductsToCart(Product p, int numberOfProducts) {
+        boolean isInCart = false;
 
-    public void removeProductFromCart(Product p) {
-        int index = 0;
-        for (Product prod : productList) {
-            if (prod.name.equals(p.name)) {
-                productList.remove(index);
+        if (Supermarket.isProductInStock(p,numberOfProducts)) {
+            for (CartProduct cProd : cartProductList) {
+                if (cProd.getProduct().equals(p)) {
+                    cProd.setNumberOfProducts(cProd.getNumberOfProducts() + numberOfProducts);
+                    isInCart = true;
+                }
             }
-            index++;
+            if (!isInCart) {
+                cartProductList.add(new CartProduct(p, numberOfProducts));
+            }
+        }else{
+            System.out.println("Product is niet beschikbaar");
         }
     }
 
-    public void removeMultipleProductsFromCart(Product p, int numberOfProducts){
-
+    public void removeMultipleProductsFromCart(Product p, int numberToRemoveProducts) {
+        boolean isInCart = false;
+        for (CartProduct cProd : cartProductList) {
+            if (cProd.getProduct().equals(p)) {
+                isInCart = true;
+                if (cProd.getNumberOfProducts() > numberToRemoveProducts) {
+                    cProd.setNumberOfProducts(numberToRemoveProducts);
+                } else if (cProd.getNumberOfProducts() == numberToRemoveProducts) {
+                    cartProductList.remove(cProd);
+                } else {
+                    System.out.println("Zoveel producten zitten niet in je winkelkarretje");
+                }
+            }
+        }
+        if (!isInCart) {
+            System.out.println("Grappenmaker dit product zit niet in het winkelkarretje");
+        }
     }
-
 }

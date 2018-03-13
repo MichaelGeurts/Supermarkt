@@ -42,6 +42,8 @@ public class App
         }
 
         System.out.println("----------------------------");
+
+        cart.addMultipleProductsToCart(Supermarket.getProductByName("Pampers"), 10);
     }
 
     private static void init() {

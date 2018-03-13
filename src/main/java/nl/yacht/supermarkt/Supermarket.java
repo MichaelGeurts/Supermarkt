@@ -26,53 +26,80 @@ public class Supermarket {
         new Product("IjsThee", 0.99, 35);
     }
 
+    private static boolean hasProduct(Product p){
+        for(Product prod : availableProducts){
+            if(prod.equals(p)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static Product getProductByName(String name){
+        for(Product p : availableProducts){
+            if(p.getName().equals(name)){
+                return p;
+            }
+        }
+        return null;
+    }
+
+
+    public static boolean isProductInStock(String name){
+        return checkStock(getProductByName(name), 0);
+    }
+
+    public static boolean isProductInStock(Product p){
+        return hasProduct(p);
+    }
+
+    public static boolean isProductQuantityInStock(String name, int quantity){
+        return checkStock(getProductByName(name), quantity);
+    }
+
+    public static boolean isProductQuantityInStock(Product p, int quantity){
+        if(hasProduct(p)){
+            return checkStock(p, quantity);
+        }
+       return false;
+    }
+
+    private static boolean checkStock(Product p, int quantity){
+        if (!p.equals(null)){
+            return p.getNumberOfProducts() > quantity;
+        }
+        return false;
+    }
+
     public static void addProductToInventory(Product p){
         availableProducts.add(p);
     }
 
     public static void removeProductFromInventory(Product p, int numberOfToRemoveProducts){
-        for(Product prod : availableProducts){
-            if (prod.equals(p)) {
-                int numberOfAvailableProducts = prod.numberOfProducts;
-                if(numberOfAvailableProducts >= numberOfToRemoveProducts){
-                    prod.setNumberOfProducts(numberOfAvailableProducts - numberOfToRemoveProducts);
-                }else{
-                    //doe iets wat aangeeft dat dit niet mag
+        if((hasProduct(p)) && isProductQuantityInStock(p,numberOfToRemoveProducts)){
+            int index = 0;
+            for(Product prod : availableProducts){
+                if (prod.equals(p)) {
+                    if(numberOfToRemoveProducts == 0){
+                        availableProducts.remove(index);
+                    }else{
+                        prod.setNumberOfProducts(prod.getNumberOfProducts() - numberOfToRemoveProducts);
+                    }
                 }
+                index++;
             }
         }
     }
 
     public static void removeProductFromInventory(String productName, int numberOfToRemoveProducts){
-        for(Product prod : availableProducts){
-            if (prod.name.equals(productName)) {
-                int numberOfAvailableProducts = prod.numberOfProducts;
-                if(numberOfAvailableProducts >= numberOfToRemoveProducts){
-                    prod.setNumberOfProducts(numberOfAvailableProducts - numberOfToRemoveProducts);
-                }else{
-                    //doe iets wat aangeeft dat dit niet mag
-                }
-            }
-        }
+        removeProductFromInventory(getProductByName(productName), numberOfToRemoveProducts);
     }
 
     public static void removeProductFromInventory(Product p){
-        int index = 0;
-        for (Product prod : availableProducts) {
-            if (prod.equals(p)) {
-                availableProducts.remove(index);
-            }
-            index++;
-        }
+        removeProductFromInventory(p, 0);
     }
 
     public static void removeProductFromInventory(String productName){
-        int index = 0;
-        for (Product prod : availableProducts) {
-            if (prod.name.equals(productName)) {
-                availableProducts.remove(index);
-            }
-            index++;
-        }
+        removeProductFromInventory(getProductByName(productName), 0);
     }
 }
