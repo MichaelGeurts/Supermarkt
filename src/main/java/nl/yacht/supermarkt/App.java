@@ -21,15 +21,15 @@ public class App
     }
 
     private static void test() {
-        for(Product p : Supermarket.availableProducts){
+        for(Product p : Supermarket.getLijstDomDing()){
             System.out.println(p.toString());
         }
 
         System.out.println("----------------------------");
 
-        Supermarket.removeProductFromInventory(Supermarket.availableProducts.get(2));
+        Supermarket.removeProductFromInventory(Supermarket.getLijstDomDing().get(2));
 
-        for(Product p : Supermarket.availableProducts){
+        for(Product p : Supermarket.getLijstDomDing()){
             System.out.println(p.toString());
         }
 
@@ -37,7 +37,7 @@ public class App
 
         Supermarket.removeProductFromInventory("Pampers", 8);
 
-        for(Product p : Supermarket.availableProducts){
+        for(Product p : Supermarket.getLijstDomDing()){
             System.out.println(p.toString());
         }
 
@@ -61,6 +61,11 @@ public class App
 
         Registry r = new Registry();
         r.t(10.5, 15);
+
+
+        System.out.println("----------------------------");
+        r.calculateReturnThings(146.70);
+
     }
 
     private static void init() {

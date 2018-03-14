@@ -5,9 +5,13 @@ import java.util.List;
 
 public class Supermarket {
     private static List<Product> availableProducts;
-    private static
+
 
     public List<Product> getAvailableProducts() {
+        return availableProducts;
+    }
+
+    public static  List<Product> getLijstDomDing(){
         return availableProducts;
     }
 

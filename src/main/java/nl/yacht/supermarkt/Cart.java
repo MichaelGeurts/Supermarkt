@@ -47,7 +47,7 @@ public class Cart {
             for (CartProduct cProd : cartProductList) {
                 if (cProd.getProduct().equals(p)) {
                     if (cProd.getNumberOfProducts() > numberToRemoveProducts) {
-                        cProd.setNumberOfProducts(numberToRemoveProducts);
+                        cProd.setNumberOfProducts(cProd.getNumberOfProducts() - numberToRemoveProducts);
                         Supermarket.addNumberOfStockToExcistingProduct(p,numberToRemoveProducts);
                     } else if (cProd.getNumberOfProducts() == numberToRemoveProducts) {
                         cartProductList.remove(cProd);
