@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Supermarket {
-    public static List<Product> availableProducts;
+    private static List<Product> availableProducts;
+    private static
 
     public List<Product> getAvailableProducts() {
         return availableProducts;

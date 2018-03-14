@@ -47,8 +47,7 @@ public class App
         cart.addMultipleProductsToCart(Supermarket.getProductByName("Pampers"), 10);
 
         for(CartProduct c : cart.getCartProductList()){
-            System.out.println(c.getProduct().getName());
-            System.out.println(c.getProduct().getNumberOfProducts());
+            System.out.println(c);
         }
 
         System.out.println("----------------------------");
@@ -59,6 +58,9 @@ public class App
         for(CartProduct c : cart.getCartProductList()){
             System.out.println(c);
         }
+
+        Registry r = new Registry();
+        r.t(10.5, 15);
     }
 
     private static void init() {
